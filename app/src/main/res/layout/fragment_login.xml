@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/Auth_ScrollView">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Auth_Title"
+            android:text="@string/login_title" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/email_input_layout"
+            style="@style/Auth_TextInputLayout"
+            android:hint="@string/email"
+            app:startIconDrawable="@drawable/ic_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/email_edit_text"
+                style="@style/Auth_TextInputEditText"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/password_input_layout"
+            style="@style/Auth_TextInputLayout"
+            android:hint="@string/password"
+            app:startIconDrawable="@drawable/ic_password"
+            app:endIconMode="password_toggle">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/password_edit_text"
+                style="@style/Auth_TextInputEditText"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/forgot_password_text"
+            style="@style/Auth_LinkText"
+            android:layout_gravity="end"
+            android:text="@string/forgot_password" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/login_button"
+            style="@style/Auth_PrimaryButton"
+            android:text="@string/login_button" />
+
+        <com.google.android.material.textview.MaterialTextView
+            style="@style/Auth_DividerText"
+            android:text="@string/or" />
+
+        <LinearLayout
+            style="@style/Auth_LinkContainer">
+
+            <com.google.android.material.textview.MaterialTextView
+                style="@style/Auth_SecondaryText"
+                android:text="@string/no_account" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/register_link"
+                style="@style/Auth_LinkText"
+                android:layout_marginStart="4dp"
+                android:text="@string/register_here"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</ScrollView>

@@ -1,5 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Primary Colors -->
+    <color name="primary_50">#E8F5F2</color>
+    <color name="primary_100">#C6E6DE</color>
+    <color name="primary_200">#A1D5C9</color>
+    <color name="primary_300">#7BC4B3</color>
+    <color name="primary_400">#5EB7A2</color>
+    <color name="primary_500">#42AA92</color>
+    <color name="primary_600">#3CA38A</color>
+    <color name="primary_700">#339980</color>
+    <color name="primary_800">#2B9076</color>
+    <color name="primary_900">#1D7F64</color>
+
+    <!-- Semantic Colors -->
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="success_green">#4CAF50</color>
+    <color name="error_red">#B00020</color>
+    <color name="warning_orange">#FF9800</color>
+
+    <!-- Text Colors -->
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#49454F</color>
+    <color name="text_hint">#9E9E9E</color>
+
+    <!-- Input Fields -->
+    <color name="input_background">#F3F7F6</color>
+    <color name="input_stroke">#79747E</color>
+    <color name="input_focused">#42AA92</color>
+    <color name="input_error">#BA1A1A</color>
 </resources>

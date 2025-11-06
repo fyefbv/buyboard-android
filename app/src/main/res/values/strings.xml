@@ -1,3 +1,44 @@
 <resources>
-    <string name="app_name">buyboard-android</string>
+    <string name="app_name" translatable="false">BuyBoard</string>
+    <string name="loading">Loading...</string>
+    <string name="error_occurred">An error occurred</string>
+
+    <!-- Auth Activity -->
+    <string name="welcome_to_buyboard">Welcome to BuyBoard</string>
+    <string name="sell_and_buy_easily">Buy and sell easily</string>
+
+    <!-- Login Fragment -->
+    <string name="login_title">Sign In</string>
+    <string name="email">Email</string>
+    <string name="email_hint">example@mail.com</string>
+    <string name="password">Password</string>
+    <string name="password_hint">Enter your password</string>
+    <string name="login_button">Sign In</string>
+    <string name="no_account">Don\'t have an account?</string>
+    <string name="register_here">Sign Up</string>
+    <string name="forgot_password">Forgot password?</string>
+    <string name="or">or</string>
+
+    <!-- Registration Fragment -->
+    <string name="register_title">Create Account</string>
+    <string name="full_name">Full Name</string>
+    <string name="full_name_hint">John Smith</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="confirm_password_hint">Repeat password</string>
+    <string name="city">City</string>
+    <string name="city_hint">New York</string>
+    <string name="register_button">Create Account</string>
+    <string name="have_account">Already have an account?</string>
+    <string name="login_here">Sign In</string>
+
+    <!-- Validation Errors -->
+    <string name="error_invalid_email">Please enter a valid email</string>
+    <string name="error_empty_email">Please enter email</string>
+    <string name="error_short_password">Password must be at least 6 characters</string>
+    <string name="error_empty_password">Please enter password</string>
+    <string name="error_empty_name">Please enter your name</string>
+    <string name="error_password_mismatch">Passwords don\'t match</string>
+    <string name="error_empty_city">Please select city</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
