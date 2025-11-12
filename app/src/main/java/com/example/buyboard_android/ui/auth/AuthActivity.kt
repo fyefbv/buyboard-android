@@ -1,10 +1,12 @@
 package com.example.buyboard_android.ui.auth
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.buyboard_android.databinding.ActivityAuthBinding
 import com.example.buyboard_android.ui.auth.login.LoginFragment
 import com.example.buyboard_android.ui.auth.register.RegisterFragment
+import com.example.buyboard_android.ui.main.MainActivity
 
 class AuthActivity : AppCompatActivity(),
     LoginFragment.LoginListener,
@@ -34,11 +36,25 @@ class AuthActivity : AppCompatActivity(),
             .commit()
     }
 
+    private fun navigateToMain() {
+        val intent = Intent(this, MainActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
     override fun onRegisterClicked() {
         showRegisterFragment()
     }
 
     override fun onLoginClicked() {
         supportFragmentManager.popBackStack()
+    }
+
+    override fun onRegisterSuccessClicked() {
+        navigateToMain()
+    }
+
+    override fun onLoginSuccessClicked() {
+        navigateToMain()
     }
 }

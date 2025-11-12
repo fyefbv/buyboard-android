@@ -14,6 +14,7 @@ class RegisterFragment : Fragment() {
 
     interface RegisterListener {
         fun onLoginClicked()
+        fun onRegisterSuccessClicked()
     }
 
     override fun onAttach(context: Context) {
@@ -38,6 +39,10 @@ class RegisterFragment : Fragment() {
     private fun setupClickListeners() {
         fragmentRegisterBinding.loginLink.setOnClickListener {
             listener.onLoginClicked()
+        }
+
+        fragmentRegisterBinding.registerButton.setOnClickListener {
+            listener.onRegisterSuccessClicked()
         }
     }
 }

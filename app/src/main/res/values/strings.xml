@@ -39,4 +39,10 @@
     <string name="error_empty_name">Please enter your name</string>
     <string name="error_password_mismatch">Passwords don\'t match</string>
     <string name="error_empty_city">Please select city</string>
+
+    <!-- Navigation Menu -->
+    <string name="home">Home</string>
+    <string name="favorites">Favorites</string>
+    <string name="create_ad">Create Ad</string>
+    <string name="profile">Profile</string>
 </resources>

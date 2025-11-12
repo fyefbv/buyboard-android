@@ -39,4 +39,10 @@
     <string name="error_empty_name">Введите ваше имя</string>
     <string name="error_password_mismatch">Пароли не совпадают</string>
     <string name="error_empty_city">Выберите город</string>
+
+    <!-- Navigation Menu -->
+    <string name="home">Главная</string>
+    <string name="favorites">Избранное</string>
+    <string name="create_ad">Разместить</string>
+    <string name="profile">Профиль</string>
 </resources>
