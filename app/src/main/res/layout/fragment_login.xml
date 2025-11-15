@@ -13,15 +13,15 @@
             android:text="@string/login_title" />
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/email_input_layout"
+            android:id="@+id/login_input_layout"
             style="@style/Auth_TextInputLayout"
-            android:hint="@string/email"
-            app:startIconDrawable="@drawable/ic_email">
+            android:hint="@string/login"
+            app:startIconDrawable="@drawable/ic_person">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/email_edit_text"
+                android:id="@+id/login_edit_text"
                 style="@style/Auth_TextInputEditText"
-                android:inputType="textEmailAddress" />
+                android:inputType="text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -39,11 +39,11 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/forgot_password_text"
-            style="@style/Auth_LinkText"
-            android:layout_gravity="end"
-            android:text="@string/forgot_password" />
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:id="@+id/forgot_password_text"-->
+<!--            style="@style/Auth_LinkText"-->
+<!--            android:layout_gravity="end"-->
+<!--            android:text="@string/forgot_password" />-->
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
@@ -66,9 +66,7 @@
                 style="@style/Auth_LinkText"
                 android:layout_marginStart="4dp"
                 android:text="@string/register_here"
-                android:textStyle="bold"
-                android:clickable="true"
-                android:focusable="true"/>
+                android:textStyle="bold" />
 
         </LinearLayout>
 
