@@ -62,8 +62,6 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:maxHeight="300dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
             android:overScrollMode="never"
             android:scrollbars="none"
             tools:listitem="@layout/item_category" />
