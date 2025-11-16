@@ -67,7 +67,7 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         setupRecyclerView()
         setupSwipeRefresh()
-        setupFilterButton()
+        setupClickListeners()
         loadAds()
     }
 
@@ -98,7 +98,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setupFilterButton() {
+    private fun setupClickListeners() {
         binding.filterButton.setOnClickListener {
             showCategoriesFragment()
         }

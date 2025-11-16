@@ -1,13 +1,16 @@
 package com.example.buyboard_android.ui.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
 import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.ActivityMainBinding
+import com.example.buyboard_android.ui.auth.AuthActivity
+import com.example.buyboard_android.ui.profile.ProfileFragment.ProfileListener
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), ProfileListener {
     private lateinit var activityMainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,5 +27,15 @@ class MainActivity : AppCompatActivity() {
         val navController = findNavController(R.id.nav_host_fragment)
 
         activityMainBinding.bottomNavigation.setupWithNavController(navController)
+    }
+
+    private fun navigateToAuth() {
+        val intent = Intent(this, AuthActivity::class.java)
+        startActivity(intent)
+        finish()
+    }
+
+    override fun onLogoutClicked() {
+        navigateToAuth()
     }
 }

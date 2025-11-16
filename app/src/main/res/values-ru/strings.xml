@@ -72,4 +72,10 @@
     <string name="ad_location">Местоположение</string>
     <string name="ad_date">Дата</string>
     <string name="category_name">Категория</string>
+
+    <!-- Settings Fragment -->
+    <string name="settings_title">Настройки</string>
+    <string name="settings_subtitle">Управление настройками приложения</string>
+    <string name="language_setting_title">Язык приложения</string>
+    <string name="language_setting_subtitle">Русский / English</string>
 </resources>

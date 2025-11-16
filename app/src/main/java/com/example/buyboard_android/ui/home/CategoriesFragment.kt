@@ -31,11 +31,6 @@ class CategoriesFragment : DialogFragment() {
         Category("animals", "Животные")
     )
 
-    override fun onStart() {
-        super.onStart()
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -50,6 +45,11 @@ class CategoriesFragment : DialogFragment() {
         setupRecyclerView()
         setupClickListeners()
         loadCategories()
+    }
+
+    override fun onStart() {
+        super.onStart()
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
     }
 
     private fun setupRecyclerView() {
