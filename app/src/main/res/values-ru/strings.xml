@@ -55,9 +55,21 @@
     <string name="edit_profile">Редактировать профиль</string>
     <string name="active_ads">Активные</string>
     <string name="sold_ads">Продано</string>
-    <string name="reviews">Отзывы</string>
-    <string name="no_ads">Объявления отсутствуют</string>
-    <string name="no_favorites">В избранном пусто</string>
     <string name="my_statistics">Моя статистика</string>
     <string name="account_management">Управление аккаунтом</string>
+
+    <!-- Home Fragment -->
+    <string name="home_title">Главная</string>
+    <string name="search_hint">Поиск объявлений...</string>
+    <string name="categories_title">Категории</string>
+    <string name="no_ads_found">Объявления не найдены</string>
+    <string name="no_ads_description">Попробуйте изменить параметры поиска</string>
+
+    <!-- Ad items -->
+    <string name="ad_title">Название объявления</string>
+    <string name="ad_price">Цена</string>
+    <string name="ad_category">Категория</string>
+    <string name="ad_location">Местоположение</string>
+    <string name="ad_date">Дата</string>
+    <string name="category_name">Категория</string>
 </resources>

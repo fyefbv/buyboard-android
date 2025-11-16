@@ -55,8 +55,23 @@
     <string name="edit_profile">Edit Profile</string>
     <string name="active_ads">Active</string>
     <string name="sold_ads">Sold</string>
-    <string name="reviews">Reviews</string>
-    <string name="no_ads">No ads available</string>
     <string name="my_statistics">My statistics</string>
     <string name="account_management">Account management</string>
+
+    <!-- Home Fragment -->
+    <string name="home_title">Home</string>
+    <string name="search_hint">Search ads...</string>
+    <string name="categories_title">Categories</string>
+    <string name="no_ads_found">No ads found</string>
+    <string name="no_ads_description">Try changing your search criteria</string>
+
+    <!-- Ad items -->
+    <string name="ad_title">Ad Title</string>
+    <string name="ad_price">Price</string>
+    <string name="ad_category">Category</string>
+    <string name="ad_location">Location</string>
+    <string name="ad_date">Date</string>
+    <string name="category_name">Category</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
