@@ -44,10 +44,19 @@ class ProfileFragment : Fragment() {
         binding.logoutItem.setOnClickListener {
             listener.onLogoutClicked()
         }
+
+        binding.editProfileButton.setOnClickListener {
+            showEditProfileFragment()
+        }
     }
 
     private fun showSettingsFragment() {
         val settingsFragment = SettingsFragment()
         settingsFragment.show(parentFragmentManager, "settings_dialog")
+    }
+
+    private fun showEditProfileFragment() {
+        val editProfileFragment = EditProfileFragment()
+        editProfileFragment.show(parentFragmentManager, "edit_profile_dialog")
     }
 }

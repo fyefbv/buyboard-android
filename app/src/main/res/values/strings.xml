@@ -78,4 +78,9 @@
     <string name="settings_subtitle">Application settings management</string>
     <string name="language_setting_title">App Language</string>
     <string name="language_setting_subtitle">Russian / English</string>
+
+    <!-- Edit Profile Fragment-->
+    <string name="change_photo">Change Photo</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
 </resources>

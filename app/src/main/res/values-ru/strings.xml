@@ -78,4 +78,9 @@
     <string name="settings_subtitle">Управление настройками приложения</string>
     <string name="language_setting_title">Язык приложения</string>
     <string name="language_setting_subtitle">Русский / English</string>
+
+    <!-- Edit Profile Fragment-->
+    <string name="change_photo">Изменить фото</string>
+    <string name="cancel">Отмена</string>
+    <string name="save">Сохранить</string>
 </resources>
