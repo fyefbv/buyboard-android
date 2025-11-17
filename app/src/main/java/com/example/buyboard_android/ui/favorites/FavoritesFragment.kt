@@ -1,5 +1,6 @@
 package com.example.buyboard_android.ui.favorites
 
+import android.content.Context
 import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -17,6 +18,11 @@ import com.example.buyboard_android.ui.home.adapters.AdsAdapter
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adsAdapter: AdsAdapter
+    private lateinit var listener: FavoritesListener
+
+    interface FavoritesListener {
+        fun onFavoriteAdClicked()
+    }
 
     private val mockAds = listOf(
         Ad(
@@ -57,6 +63,11 @@ class FavoritesFragment : Fragment() {
         )
     )
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as FavoritesListener
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -78,7 +89,7 @@ class FavoritesFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adsAdapter = AdsAdapter(
                 onAdClick = { ad ->
-                    navigateToAdDetails(ad.id)
+                    navigateToAdDetails()
                 },
                 onFavoriteClick = { ad ->
                     toggleFavorite(ad)
@@ -119,7 +130,7 @@ class FavoritesFragment : Fragment() {
         }
     }
 
-    private fun navigateToAdDetails(adId: String) {
-        Toast.makeText(requireContext(), "Переход к объявлению $adId", Toast.LENGTH_SHORT).show()
+    private fun navigateToAdDetails() {
+        listener.onFavoriteAdClicked()
     }
 }

@@ -1,5 +1,6 @@
 package com.example.buyboard_android.ui.home
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,6 +18,11 @@ import com.example.buyboard_android.ui.home.adapters.AdsAdapter
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adsAdapter: AdsAdapter
+    private lateinit var listener: HomeListener
+
+    interface HomeListener {
+        fun onHomeAdClicked()
+    }
 
     private val mockAds = listOf(
         Ad(
@@ -54,6 +60,11 @@ class HomeFragment : Fragment() {
         )
     )
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        listener = context as HomeListener
+    }
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -76,7 +87,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adsAdapter = AdsAdapter(
                 onAdClick = { ad ->
-                    navigateToAdDetails(ad.id)
+                    navigateToAdDetails()
                 },
                 onFavoriteClick = { ad ->
                     toggleFavorite(ad)
@@ -129,7 +140,7 @@ class HomeFragment : Fragment() {
         Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun navigateToAdDetails(adId: String) {
-        Toast.makeText(requireContext(), "Переход к объявлению $adId", Toast.LENGTH_SHORT).show()
+    private fun navigateToAdDetails() {
+        listener.onHomeAdClicked()
     }
 }

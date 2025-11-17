@@ -8,9 +8,17 @@ import androidx.navigation.ui.setupWithNavController
 import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.ActivityMainBinding
 import com.example.buyboard_android.ui.auth.AuthActivity
+import com.example.buyboard_android.ui.favorites.FavoritesFragment.FavoritesListener
+import com.example.buyboard_android.ui.home.AdDetailsFragment
+import com.example.buyboard_android.ui.home.AdDetailsFragment.AdDetailsListener
+import com.example.buyboard_android.ui.home.HomeFragment.HomeListener
 import com.example.buyboard_android.ui.profile.ProfileFragment.ProfileListener
 
-class MainActivity : AppCompatActivity(), ProfileListener {
+class MainActivity : AppCompatActivity(),
+    ProfileListener,
+    HomeListener,
+    FavoritesListener,
+    AdDetailsListener {
     private lateinit var activityMainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -37,5 +45,25 @@ class MainActivity : AppCompatActivity(), ProfileListener {
 
     override fun onLogoutClicked() {
         navigateToAuth()
+    }
+
+    override fun onFavoriteAdClicked() {
+        val fragment = AdDetailsFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(activityMainBinding.navHostFragment.id, fragment)
+            .addToBackStack("favorites")
+            .commit()
+    }
+
+    override fun onHomeAdClicked() {
+        val fragment = AdDetailsFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(activityMainBinding.navHostFragment.id, fragment)
+            .addToBackStack("home")
+            .commit()
+    }
+
+    override fun onBackClicked() {
+        supportFragmentManager.popBackStack()
     }
 }

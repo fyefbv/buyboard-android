@@ -53,7 +53,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/profile_member_since"
                             style="@style/Profile_MemberSinceText"
-                            android:text="@string/member_since" />
+                            android:text="@string/registered_since" />
 
                     </LinearLayout>
 
