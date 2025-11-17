@@ -14,6 +14,7 @@ class ProfileFragment : Fragment() {
 
     interface ProfileListener {
         fun onLogoutClicked()
+        fun onMyAdsClicked()
     }
 
     override fun onAttach(context: Context) {
@@ -43,6 +44,10 @@ class ProfileFragment : Fragment() {
 
         binding.logoutItem.setOnClickListener {
             listener.onLogoutClicked()
+        }
+
+        binding.myAdsItem.setOnClickListener {
+            listener.onMyAdsClicked()
         }
 
         binding.editProfileButton.setOnClickListener {

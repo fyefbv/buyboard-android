@@ -83,4 +83,17 @@
     <string name="change_photo">Change Photo</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
+
+<!--    <string-array name="locations">-->
+<!--        <item>Moscow</item>-->
+<!--        <item>Saint Petersburg</item>-->
+<!--        <item>Novosibirsk</item>-->
+<!--        <item>Yekaterinburg</item>-->
+<!--        <item>Kazan</item>-->
+<!--        <item>Nizhny Novgorod</item>-->
+<!--        <item>Chelyabinsk</item>-->
+<!--        <item>Samara</item>-->
+<!--        <item>Omsk</item>-->
+<!--        <item>Rostov-on-Don</item>-->
+<!--    </string-array>-->
 </resources>

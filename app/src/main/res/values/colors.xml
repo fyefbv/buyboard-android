@@ -21,6 +21,8 @@
     <color name="light_red">#F85353</color>
     <color name="light_pink">#F89F9F</color>
 
+    <color name="green">#3ADB40</color>
+
     <color name="success_green">#4CAF50</color>
     <color name="error_red">#B00020</color>
     <color name="warning_orange">#FF9800</color>

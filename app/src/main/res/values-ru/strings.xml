@@ -83,4 +83,17 @@
     <string name="change_photo">Изменить фото</string>
     <string name="cancel">Отмена</string>
     <string name="save">Сохранить</string>
+
+<!--    <string-array name="locations">-->
+<!--        <item>Москва</item>-->
+<!--        <item>Санкт-Петербург</item>-->
+<!--        <item>Новосибирск</item>-->
+<!--        <item>Екатеринбург</item>-->
+<!--        <item>Казань</item>-->
+<!--        <item>Нижний Новгород</item>-->
+<!--        <item>Челябинск</item>-->
+<!--        <item>Самара</item>-->
+<!--        <item>Омск</item>-->
+<!--        <item>Ростов-на-Дону</item>-->
+<!--    </string-array>-->
 </resources>

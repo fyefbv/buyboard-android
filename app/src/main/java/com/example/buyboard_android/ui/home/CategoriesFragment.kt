@@ -49,7 +49,13 @@ class CategoriesFragment : DialogFragment() {
 
     override fun onStart() {
         super.onStart()
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.dialog_rounded_background)
+        dialog?.window?.apply {
+            setBackgroundDrawableResource(R.drawable.dialog_rounded_background_with_margin)
+            setLayout(
+                ViewGroup.LayoutParams.MATCH_PARENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+            )
+        }
     }
 
     private fun setupRecyclerView() {

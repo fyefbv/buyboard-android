@@ -12,13 +12,16 @@ import com.example.buyboard_android.ui.favorites.FavoritesFragment.FavoritesList
 import com.example.buyboard_android.ui.home.AdDetailsFragment
 import com.example.buyboard_android.ui.home.AdDetailsFragment.AdDetailsListener
 import com.example.buyboard_android.ui.home.HomeFragment.HomeListener
+import com.example.buyboard_android.ui.my_ads.MyAdsFragment
+import com.example.buyboard_android.ui.my_ads.MyAdsFragment.MyAdsListener
 import com.example.buyboard_android.ui.profile.ProfileFragment.ProfileListener
 
 class MainActivity : AppCompatActivity(),
     ProfileListener,
     HomeListener,
     FavoritesListener,
-    AdDetailsListener {
+    AdDetailsListener,
+    MyAdsListener {
     private lateinit var activityMainBinding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +66,27 @@ class MainActivity : AppCompatActivity(),
             .commit()
     }
 
+    override fun onMyAdClicked() {
+        val fragment = AdDetailsFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(activityMainBinding.navHostFragment.id, fragment)
+            .addToBackStack("my_ads")
+            .commit()
+    }
+
+    override fun onMyAdsClicked() {
+        val fragment = MyAdsFragment()
+        supportFragmentManager.beginTransaction()
+            .replace(activityMainBinding.navHostFragment.id, fragment)
+            .addToBackStack("profile")
+            .commit()
+    }
+
     override fun onBackClicked() {
+        supportFragmentManager.popBackStack()
+    }
+
+    override fun myAdsBackClicked() {
         supportFragmentManager.popBackStack()
     }
 }
