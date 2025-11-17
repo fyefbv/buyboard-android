@@ -13,8 +13,7 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="2dp"
+        style="@style/CardView_LowElevation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -34,11 +33,12 @@
 
             <ImageButton
                 android:id="@+id/filter_button"
+                style="@style/ImageButton_Icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="8dp"
-                android:background="@null"
+                android:contentDescription="@string/filtration"
                 android:src="@drawable/ic_filter"
                 app:tint="@color/gray"/>
 
@@ -68,38 +68,23 @@
 
     <LinearLayout
         android:id="@+id/empty_state_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
+        style="@style/EmptyState_Container"
         app:layout_constraintBottom_toBottomOf="@+id/swipe_refresh_layout"
         app:layout_constraintEnd_toEndOf="@+id/swipe_refresh_layout"
         app:layout_constraintStart_toStartOf="@+id/swipe_refresh_layout"
         app:layout_constraintTop_toTopOf="@+id/swipe_refresh_layout">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_not_found"
-            app:tint="@color/white" />
+            style="@style/EmptyState_Image"
+            android:src="@drawable/ic_not_found" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/no_ads_found"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/EmptyState_Title"
+            android:text="@string/no_ads_found" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/no_ads_description"
-            android:textColor="@color/white"
-            android:textSize="14sp" />
+            style="@style/EmptyState_Description"
+            android:text="@string/no_ads_description" />
 
     </LinearLayout>
 

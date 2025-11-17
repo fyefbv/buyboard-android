@@ -28,30 +28,19 @@
 
     <LinearLayout
         android:id="@+id/empty_state_layout"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:gravity="center"
-        android:orientation="vertical"
-        android:visibility="gone"
+        style="@style/EmptyState_Container"
         app:layout_constraintBottom_toBottomOf="@+id/swipe_refresh_layout"
         app:layout_constraintEnd_toEndOf="@+id/swipe_refresh_layout"
         app:layout_constraintStart_toStartOf="@+id/swipe_refresh_layout"
         app:layout_constraintTop_toTopOf="@+id/swipe_refresh_layout">
 
         <com.google.android.material.imageview.ShapeableImageView
-            android:layout_width="120dp"
-            android:layout_height="120dp"
-            android:src="@drawable/ic_not_found"
-            app:tint="@color/white" />
+            style="@style/EmptyState_Image"
+            android:src="@drawable/ic_not_found" />
 
         <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="@string/no_ads_found"
-            android:textColor="@color/white"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            style="@style/EmptyState_Title"
+            android:text="@string/no_ads_found" />
 
     </LinearLayout>
 

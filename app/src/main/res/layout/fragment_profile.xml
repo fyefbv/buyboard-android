@@ -43,17 +43,17 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/profile_name"
                             style="@style/Profile_LoginText"
-                            android:text="@string/user_name" />
+                            tools:text="Иван Иванов" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/profile_email"
                             style="@style/Profile_EmailText"
-                            android:text="@string/user_email" />
+                            tools:text="ivan@example.com" />
 
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/profile_member_since"
                             style="@style/Profile_MemberSinceText"
-                            android:text="@string/registered_since" />
+                            tools:text="Зарегистрирован с 2024-09-12" />
 
                     </LinearLayout>
 
@@ -91,7 +91,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/active_ads_count"
                             style="@style/Profile_StatNumberText"
-                            android:text="12" />
+                            tools:text="12" />
 
                         <com.google.android.material.textview.MaterialTextView
                             style="@style/Profile_StatText"
@@ -108,7 +108,7 @@
                         <com.google.android.material.textview.MaterialTextView
                             android:id="@+id/sold_ads_count"
                             style="@style/Profile_StatNumberText"
-                            android:text="47" />
+                            tools:text="47" />
 
                         <com.google.android.material.textview.MaterialTextView
                             style="@style/Profile_StatText"
@@ -152,7 +152,6 @@
 
                 <View
                     style="@style/Profile_HorizontalSeparator" />
-
 
                 <LinearLayout
                     android:id="@+id/settings_item"

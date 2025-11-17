@@ -7,8 +7,7 @@
     android:layout_margin="12dp"
     android:fillViewport="true"
     android:elevation="4dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="16dp"
+    style="@style/CardView_Default"
     tools:context=".ui.profile.EditProfileFragment">
 
     <ScrollView
@@ -104,6 +103,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginEnd="8dp"
+                        style="@style/Button_Secondary"
                         android:text="@string/cancel" />
 
                     <com.google.android.material.button.MaterialButton
@@ -112,6 +112,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:layout_marginStart="8dp"
+                        style="@style/Button_Primary"
                         android:text="@string/save" />
 
                 </LinearLayout>

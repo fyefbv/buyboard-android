@@ -5,9 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="20dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="8dp">
+    style="@style/CardView_Default">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,25 +29,22 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/settings_title"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    style="@style/TextAppearance_Title_Medium"
+                    android:text="@string/settings_title" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/settings_subtitle"
-                    android:textColor="@color/gray"
-                    android:layout_marginTop="4dp"/>
+                    style="@style/TextAppearance_Caption"
+                    android:layout_marginTop="4dp"
+                    android:text="@string/settings_subtitle" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/close_button"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@null"
+                style="@style/ImageButton_Icon_Large"
                 android:layout_gravity="top"
+                android:contentDescription="@string/close"
                 android:src="@drawable/ic_close" />
         </LinearLayout>
 
@@ -57,9 +52,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@color/primary_50"
-            app:cardCornerRadius="16dp"
-            app:cardElevation="4dp">
+            style="@style/CardView_Filter">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,18 +70,15 @@
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/language_setting_title"
-                        android:textColor="@color/black"
-                        android:textSize="16sp"
-                        android:textStyle="bold" />
+                        style="@style/TextAppearance_Title_Small"
+                        android:text="@string/language_setting_title" />
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/language_setting_subtitle"
-                        android:textColor="@color/gray"
-                        android:textSize="14sp"
-                        android:layout_marginTop="2dp"/>
+                        style="@style/TextAppearance_Caption"
+                        android:layout_marginTop="2dp"
+                        android:text="@string/language_setting_subtitle" />
                 </LinearLayout>
 
                 <androidx.appcompat.widget.SwitchCompat

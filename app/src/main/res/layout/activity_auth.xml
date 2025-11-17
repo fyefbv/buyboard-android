@@ -30,19 +30,18 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="@string/welcome_to_buyboard"
+            style="@style/TextAppearance_Title_Large"
             android:textColor="@color/white"
-            android:textSize="28sp"
-            android:textStyle="bold" />
+            android:text="@string/welcome_to_buyboard" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="@string/sell_and_buy_easily"
+            style="@style/TextAppearance_Body_Medium"
             android:textColor="@color/white"
-            android:textSize="16sp" />
+            android:text="@string/sell_and_buy_easily" />
     </LinearLayout>
 
     <com.google.android.material.card.MaterialCardView
@@ -53,8 +52,7 @@
         android:layout_marginEnd="24dp"
         android:layout_marginTop="32dp"
         android:layout_marginBottom="32dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp"
+        style="@style/CardView_Default"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

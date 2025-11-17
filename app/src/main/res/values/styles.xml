@@ -1,6 +1,95 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <!-- Auth -->
+    <!-- Common Card Styles -->
+    <style name="CardView_Default">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+    </style>
+
+    <style name="CardView_Surface">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardElevation">4dp</item>
+        <item name="strokeColor">@color/input_background</item>
+        <item name="strokeWidth">1dp</item>
+    </style>
+
+    <style name="CardView_Filter">
+        <item name="cardBackgroundColor">@color/primary_50</item>
+        <item name="cardCornerRadius">12dp</item>
+        <item name="cardElevation">0dp</item>
+    </style>
+
+    <style name="CardView_LowElevation">
+        <item name="cardCornerRadius">16dp</item>
+        <item name="cardBackgroundColor">@color/white</item>
+        <item name="cardElevation">2dp</item>
+    </style>
+
+    <!-- Button Styles -->
+    <style name="Button_Default">
+        <item name="cornerRadius">12dp</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="Button_Primary">
+        <item name="backgroundTint">@color/primary_500</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="Button_Secondary">
+        <item name="backgroundTint">@color/white</item>
+        <item name="strokeColor">@color/primary_500</item>
+        <item name="strokeWidth">1dp</item>
+        <item name="android:textColor">@color/primary_500</item>
+    </style>
+
+    <!-- Text Styles -->
+    <style name="TextAppearance_Title_Large">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Title_Medium">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Title_Small">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Body_Large">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Body_Medium">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Body_Small">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="TextAppearance_Caption">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/gray</item>
+    </style>
+
+    <style name="TextAppearance_Price">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/primary_500</item>
+    </style>
+
+    <!-- Auth Styles -->
     <style name="Auth_ScrollView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -78,7 +167,7 @@
         <item name="android:layout_marginTop">10dp</item>
     </style>
 
-    <!-- Profile -->
+    <!-- Profile Styles -->
     <style name="Profile_LoginText">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -206,9 +295,92 @@
     <style name="Profile_CardSurface">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
+        <item name="cardBackgroundColor">@color/white</item>
         <item name="cardCornerRadius">16dp</item>
         <item name="cardElevation">4dp</item>
         <item name="strokeColor">@color/input_background</item>
         <item name="strokeWidth">1dp</item>
+    </style>
+
+    <!-- Chip Styles -->
+    <style name="Chip_Filter">
+        <item name="chipIconVisible">false</item>
+        <item name="chipBackgroundColor">@drawable/chip_background_selector</item>
+        <item name="chipStrokeColor">@drawable/chip_stroke_selector</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="chipCornerRadius">8dp</item>
+        <item name="android:textColor">@drawable/chip_text_selector</item>
+    </style>
+
+    <style name="Chip_Category">
+        <item name="chipBackgroundColor">@color/primary_50</item>
+        <item name="chipStrokeColor">@color/primary_300</item>
+        <item name="chipStrokeWidth">1dp</item>
+        <item name="android:textColor">@color/primary_600</item>
+        <item name="chipCornerRadius">8dp</item>
+    </style>
+
+    <!-- ImageButton Styles -->
+    <style name="ImageButton_Icon">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <style name="ImageButton_Icon_Large">
+        <item name="android:layout_width">44dp</item>
+        <item name="android:layout_height">44dp</item>
+        <item name="android:background">@null</item>
+    </style>
+
+    <!-- Slider Styles -->
+    <style name="Slider_Range">
+        <item name="trackHeight">4dp</item>
+        <item name="haloRadius">0dp</item>
+        <item name="labelBehavior">withinBounds</item>
+        <item name="android:layout_marginTop">-8dp</item>
+    </style>
+
+    <!-- TextInputLayout Styles -->
+    <style name="TextInputLayout_Outlined">
+        <item name="boxBackgroundMode">outline</item>
+        <item name="boxCornerRadiusTopStart">8dp</item>
+        <item name="boxCornerRadiusTopEnd">8dp</item>
+        <item name="boxCornerRadiusBottomStart">8dp</item>
+        <item name="boxCornerRadiusBottomEnd">8dp</item>
+        <item name="startIconTint">@color/gray</item>
+        <item name="endIconMode">dropdown_menu</item>
+    </style>
+
+    <!-- Empty State Styles -->
+    <style name="EmptyState_Container">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">0dp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:orientation">vertical</item>
+        <item name="android:visibility">gone</item>
+    </style>
+
+    <style name="EmptyState_Image">
+        <item name="android:layout_width">120dp</item>
+        <item name="android:layout_height">120dp</item>
+        <item name="tint">@color/white</item>
+    </style>
+
+    <style name="EmptyState_Title">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">16dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="EmptyState_Description">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginTop">8dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">14sp</item>
     </style>
 </resources>

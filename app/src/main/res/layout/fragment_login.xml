@@ -39,12 +39,6 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-<!--        <com.google.android.material.textview.MaterialTextView-->
-<!--            android:id="@+id/forgot_password_text"-->
-<!--            style="@style/Auth_LinkText"-->
-<!--            android:layout_gravity="end"-->
-<!--            android:text="@string/forgot_password" />-->
-
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
             style="@style/Auth_PrimaryButton"

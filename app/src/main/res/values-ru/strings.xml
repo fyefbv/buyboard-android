@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name" translatable="false">BuyBoard</string>
     <string name="loading">Загрузка...</string>
     <string name="error_occurred">Произошла ошибка</string>
 
@@ -44,14 +45,10 @@
     <string name="profile">Профиль</string>
 
     <!-- Profile Fragment -->
-    <string name="profile_title">Профиль</string>
     <string name="personal_info">Личная информация</string>
     <string name="my_ads">Мои объявления</string>
     <string name="settings">Настройки</string>
     <string name="logout">Выйти</string>
-    <string name="user_name">Иван Иванов</string>
-    <string name="user_email">ivan@example.com</string>
-    <string name="registered_since">Зарегестрирован с 2024-09-12</string>
     <string name="edit_profile">Редактировать профиль</string>
     <string name="active_ads">Активные</string>
     <string name="sold_ads">Продано</string>
@@ -59,19 +56,28 @@
     <string name="account_management">Управление аккаунтом</string>
 
     <!-- Home Fragment -->
-    <string name="home_title">Главная</string>
     <string name="search_hint">Поиск объявлений...</string>
-    <string name="categories_title">Категории</string>
     <string name="no_ads_found">Объявления не найдены</string>
     <string name="no_ads_description">Попробуйте изменить параметры поиска</string>
+    <string name="filtration">Фильтрация</string>
 
-    <!-- Ad items -->
-    <string name="ad_title">Название объявления</string>
-    <string name="ad_price">Цена</string>
-    <string name="ad_category">Категория</string>
-    <string name="ad_location">Местоположение</string>
-    <string name="ad_date">Дата</string>
-    <string name="category_name">Категория</string>
+    <!-- Categories Fragment -->
+    <string name="choose_category">Выберите категорию</string>
+    <string name="filter_by_categories">Фильтруйте объявления по категориям</string>
+    <string name="price_range">Диапазон цены</string>
+    <string name="location">Местоположение</string>
+    <string name="select_location">Выберите местоположение</string>
+    <string name="reset">Сбросить</string>
+    <string name="apply">Применить</string>
+    <string name="close">Закрыть</string>
+
+    <!-- Ad Details Fragment -->
+    <string name="description">Описание</string>
+    <string name="seller">Продавец</string>
+    <string name="ad_management">Управление объявлением</string>
+    <string name="edit">Редактировать</string>
+    <string name="deactivate">Снять с публикации</string>
+    <string name="back">Назад</string>
 
     <!-- Settings Fragment -->
     <string name="settings_title">Настройки</string>
@@ -83,17 +89,4 @@
     <string name="change_photo">Изменить фото</string>
     <string name="cancel">Отмена</string>
     <string name="save">Сохранить</string>
-
-<!--    <string-array name="locations">-->
-<!--        <item>Москва</item>-->
-<!--        <item>Санкт-Петербург</item>-->
-<!--        <item>Новосибирск</item>-->
-<!--        <item>Екатеринбург</item>-->
-<!--        <item>Казань</item>-->
-<!--        <item>Нижний Новгород</item>-->
-<!--        <item>Челябинск</item>-->
-<!--        <item>Самара</item>-->
-<!--        <item>Омск</item>-->
-<!--        <item>Ростов-на-Дону</item>-->
-<!--    </string-array>-->
 </resources>

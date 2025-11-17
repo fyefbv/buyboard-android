@@ -8,8 +8,7 @@
     android:layout_margin="8dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    style="@style/CardView_Default">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -29,12 +28,11 @@
 
         <ImageButton
             android:id="@+id/favorite_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/ImageButton_Icon"
             android:layout_gravity="bottom"
             android:layout_marginStart="8dp"
             android:layout_marginBottom="8dp"
-            android:background="@null"
+            android:contentDescription="@string/favorites"
             android:src="@drawable/ic_like"
             app:tint="@color/gray"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -56,10 +54,7 @@
                 android:layout_height="wrap_content"
                 android:ellipsize="end"
                 android:maxLines="2"
-                android:text="@string/ad_title"
-                android:textColor="@color/black"
-                android:textSize="16sp"
-                android:textStyle="bold"
+                style="@style/TextAppearance_Title_Small"
                 tools:text="Смартфон Samsung Galaxy S21" />
 
             <com.google.android.material.textview.MaterialTextView
@@ -68,10 +63,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:text="@string/ad_price"
-                android:textColor="@color/black"
-                android:textSize="18sp"
-                android:textStyle="bold"
+                style="@style/TextAppearance_Price"
                 tools:text="25 000 ₽" />
 
             <com.google.android.material.chip.Chip
@@ -83,17 +75,10 @@
                 android:focusable="false"
                 android:focusableInTouchMode="false"
                 android:checked="false"
-                android:text="@string/ad_category"
-                android:textColor="@color/primary_600"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                app:chipBackgroundColor="@color/primary_50"
-                app:chipCornerRadius="8dp"
-                app:chipStrokeColor="@color/primary_300"
-                app:chipStrokeWidth="1dp"
-                app:rippleColor="@null"
+                style="@style/Chip_Category"
                 android:background="@null"
                 android:stateListAnimator="@null"
+                app:rippleColor="@null"
                 tools:text="Электроника" />
 
             <LinearLayout
@@ -115,9 +100,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
                     android:layout_weight="1"
-                    android:text="@string/ad_location"
+                    style="@style/TextAppearance_Body_Small"
                     android:textColor="@color/gray"
-                    android:textSize="13sp"
                     tools:text="Москва" />
 
                 <com.google.android.material.imageview.ShapeableImageView
@@ -132,9 +116,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="4dp"
-                    android:text="@string/ad_date"
+                    style="@style/TextAppearance_Body_Small"
                     android:textColor="@color/gray"
-                    android:textSize="13sp"
                     tools:text="2025-11-10 15:34" />
 
             </LinearLayout>

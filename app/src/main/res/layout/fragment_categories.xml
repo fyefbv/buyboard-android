@@ -6,9 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="12dp"
-    app:cardBackgroundColor="@color/white"
-    app:cardCornerRadius="16dp"
-    app:cardElevation="4dp">
+    style="@style/CardView_Default">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -33,26 +31,23 @@
                     android:id="@+id/tvCategoriesTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Выберите категорию"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
-                    android:textColor="@color/black" />
+                    style="@style/TextAppearance_Title_Medium"
+                    android:text="@string/choose_category" />
 
                 <com.google.android.material.textview.MaterialTextView
                     android:id="@+id/tvCategoriesSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Фильтруйте объявления по категориям"
-                    android:textColor="@color/gray"
-                    android:layout_marginTop="2dp"/>
+                    style="@style/TextAppearance_Caption"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/filter_by_categories" />
             </LinearLayout>
 
             <ImageButton
                 android:id="@+id/close_button"
-                android:layout_width="44dp"
-                android:layout_height="44dp"
-                android:background="@null"
+                style="@style/ImageButton_Icon_Large"
                 android:layout_gravity="top"
+                android:contentDescription="@string/close"
                 android:src="@drawable/ic_close" />
         </LinearLayout>
 
@@ -60,9 +55,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardBackgroundColor="@color/primary_50"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp">
+            style="@style/CardView_Filter">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -73,11 +66,9 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Диапазон цены"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
+                    style="@style/TextAppearance_Title_Small"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/price_range" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -90,29 +81,28 @@
                         android:id="@+id/price_min_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="0 ₽"
                         android:textAlignment="textStart"
+                        style="@style/TextAppearance_Body_Medium"
                         android:textColor="@color/primary_600"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="0 ₽"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="-"
-                        android:textColor="@color/gray"
-                        android:textSize="14sp"
-                        android:layout_marginHorizontal="8dp" />
+                        android:layout_marginHorizontal="8dp"
+                        style="@style/TextAppearance_Caption"
+                        tools:text="-"/>
 
                     <com.google.android.material.textview.MaterialTextView
                         android:id="@+id/price_max_text"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="100 000 ₽"
                         android:textAlignment="textEnd"
+                        style="@style/TextAppearance_Body_Medium"
                         android:textColor="@color/primary_600"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
+                        android:textStyle="bold"
+                        tools:text="100 000 ₽"/>
 
                 </LinearLayout>
 
@@ -123,12 +113,10 @@
                     android:valueFrom="0"
                     android:valueTo="100000"
                     android:stepSize="1000"
+                    style="@style/Slider_Range"
                     app:thumbColor="@color/primary_500"
                     app:trackColor="@color/primary_200"
-                    app:trackHeight="4dp"
-                    app:haloColor="@color/primary_100"
-                    app:labelBehavior="withinBounds"
-                    android:layout_marginTop="-40dp" />
+                    app:haloColor="@color/primary_100" />
 
             </LinearLayout>
 
@@ -138,9 +126,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="12dp"
-            app:cardBackgroundColor="@color/primary_50"
-            app:cardCornerRadius="12dp"
-            app:cardElevation="0dp">
+            style="@style/CardView_Filter">
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -151,23 +137,20 @@
                 <com.google.android.material.textview.MaterialTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Местоположение"
-                    android:textColor="@color/black"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp" />
+                    style="@style/TextAppearance_Title_Small"
+                    android:layout_marginBottom="12dp"
+                    android:text="@string/location" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:boxBackgroundMode="outline"
-                    app:endIconMode="dropdown_menu">
+                    style="@style/TextInputLayout_Outlined">
 
                     <AutoCompleteTextView
                         android:id="@+id/location_dropdown"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="Выберите местоположение"
+                        android:hint="@string/select_location"
                         android:inputType="none"
                         android:padding="16dp" />
 
@@ -199,14 +182,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="34dp"
-                android:text="Сбросить" />
+                style="@style/Button_Secondary"
+                android:text="@string/reset" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/apply_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="34dp"
-                android:text="Применить" />
+                style="@style/Button_Primary"
+                android:text="@string/apply" />
         </LinearLayout>
     </LinearLayout>
 
