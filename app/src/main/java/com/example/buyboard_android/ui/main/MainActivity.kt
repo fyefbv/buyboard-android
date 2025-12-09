@@ -2,91 +2,53 @@ package com.example.buyboard_android.ui.main
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.findNavController
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.ActivityMainBinding
 import com.example.buyboard_android.ui.auth.AuthActivity
-import com.example.buyboard_android.ui.favorites.FavoritesFragment.FavoritesListener
-import com.example.buyboard_android.ui.home.AdDetailsFragment
-import com.example.buyboard_android.ui.home.AdDetailsFragment.AdDetailsListener
-import com.example.buyboard_android.ui.home.HomeFragment.HomeListener
-import com.example.buyboard_android.ui.my_ads.MyAdsFragment
-import com.example.buyboard_android.ui.my_ads.MyAdsFragment.MyAdsListener
-import com.example.buyboard_android.ui.profile.ProfileFragment.ProfileListener
 
-class MainActivity : AppCompatActivity(),
-    ProfileListener,
-    HomeListener,
-    FavoritesListener,
-    AdDetailsListener,
-    MyAdsListener {
-    private lateinit var activityMainBinding: ActivityMainBinding
+class MainActivity : AppCompatActivity(), MainNavigationListener  {
+    private lateinit var binding: ActivityMainBinding
+    private lateinit var navController: NavController
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityMainBinding = ActivityMainBinding.inflate(layoutInflater)
-        setContentView(activityMainBinding.root)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        activityMainBinding.root.post {
-            setupNavigation()
-        }
+        setupNavigation()
     }
 
     private fun setupNavigation() {
-        val navController = findNavController(R.id.nav_host_fragment)
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+        navController = navHostFragment.navController
 
-        activityMainBinding.bottomNavigation.setupWithNavController(navController)
+        binding.bottomNavigation.setupWithNavController(navController)
+
+        navController.addOnDestinationChangedListener { _, destination, _ ->
+            when (destination.id) {
+                R.id.nav_home, R.id.nav_favorites, R.id.nav_profile -> {
+                    binding.bottomNavigation.visibility = View.VISIBLE
+                }
+                else -> {
+                    binding.bottomNavigation.visibility = View.GONE
+                }
+            }
+        }
     }
 
-    private fun navigateToAuth() {
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    override fun navigateToAuth() {
         val intent = Intent(this, AuthActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    override fun onLogoutClicked() {
-        navigateToAuth()
-    }
-
-    override fun onFavoriteAdClicked() {
-        val fragment = AdDetailsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityMainBinding.navHostFragment.id, fragment)
-            .addToBackStack("favorites")
-            .commit()
-    }
-
-    override fun onHomeAdClicked() {
-        val fragment = AdDetailsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityMainBinding.navHostFragment.id, fragment)
-            .addToBackStack("home")
-            .commit()
-    }
-
-    override fun onMyAdClicked() {
-        val fragment = AdDetailsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityMainBinding.navHostFragment.id, fragment)
-            .addToBackStack("my_ads")
-            .commit()
-    }
-
-    override fun onMyAdsClicked() {
-        val fragment = MyAdsFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityMainBinding.navHostFragment.id, fragment)
-            .addToBackStack("profile")
-            .commit()
-    }
-
-    override fun onBackClicked() {
-        supportFragmentManager.popBackStack()
-    }
-
-    override fun myAdsBackClicked() {
-        supportFragmentManager.popBackStack()
     }
 }

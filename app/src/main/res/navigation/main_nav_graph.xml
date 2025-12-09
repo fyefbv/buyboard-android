@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav_graph"
+    app:startDestination="@id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.example.buyboard_android.ui.home.HomeFragment"
+        android:label="@string/home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_nav_home_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+        <action
+            android:id="@+id/action_nav_home_to_categoriesDialog"
+            app:destination="@id/categoriesDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_favorites"
+        android:name="com.example.buyboard_android.ui.favorites.FavoritesFragment"
+        android:label="@string/favorites"
+        tools:layout="@layout/fragment_favorites">
+        <action
+            android:id="@+id/action_nav_favorites_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_profile"
+        android:name="com.example.buyboard_android.ui.profile.ProfileFragment"
+        android:label="@string/profile"
+        tools:layout="@layout/fragment_profile">
+        <action
+            android:id="@+id/action_nav_profile_to_myAdsFragment"
+            app:destination="@id/myAdsFragment" />
+        <action
+            android:id="@+id/action_nav_profile_to_editProfileDialog"
+            app:destination="@id/editProfileDialog" />
+        <action
+            android:id="@+id/action_nav_profile_to_settingsDialog"
+            app:destination="@id/settingsDialog" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/adDetailsFragment"
+        android:name="com.example.buyboard_android.ui.home.AdDetailsFragment"
+        android:label="AdDetailsFragment"
+        tools:layout="@layout/fragment_ad_details">
+        <argument
+            android:name="adId"
+            app:argType="string" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/myAdsFragment"
+        android:name="com.example.buyboard_android.ui.my_ads.MyAdsFragment"
+        android:label="MyAdsFragment"
+        tools:layout="@layout/fragment_my_ads">
+        <action
+            android:id="@+id/action_myAdsFragment_to_adDetailsFragment"
+            app:destination="@id/adDetailsFragment" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/editProfileDialog"
+        android:name="com.example.buyboard_android.ui.profile.EditProfileFragment"
+        android:label="EditProfileFragment" />
+
+    <dialog
+        android:id="@+id/settingsDialog"
+        android:name="com.example.buyboard_android.ui.profile.SettingsFragment"
+        android:label="SettingsFragment" />
+
+    <dialog
+        android:id="@+id/categoriesDialog"
+        android:name="com.example.buyboard_android.ui.home.CategoriesFragment"
+        android:label="CategoriesFragment" />
+</navigation>

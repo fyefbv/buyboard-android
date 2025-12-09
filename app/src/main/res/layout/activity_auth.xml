@@ -66,10 +66,13 @@
             android:fillViewport="true">
 
             <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/auth_fragment_container"
+                android:id="@+id/auth_nav_host_fragment"
+                android:name="androidx.navigation.fragment.NavHostFragment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="400dp" />
+                android:minHeight="400dp"
+                app:defaultNavHost="true"
+                app:navGraph="@navigation/auth_nav_graph" />
 
         </ScrollView>
 

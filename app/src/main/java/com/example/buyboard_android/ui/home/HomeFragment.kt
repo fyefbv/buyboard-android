@@ -1,69 +1,21 @@
 package com.example.buyboard_android.ui.home
 
-import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buyboard_android.R
 import com.example.buyboard_android.data.models.Ad
 import com.example.buyboard_android.databinding.FragmentHomeBinding
 import com.example.buyboard_android.ui.home.adapters.AdsAdapter
 
-
 class HomeFragment : Fragment() {
     private lateinit var binding: FragmentHomeBinding
     private lateinit var adsAdapter: AdsAdapter
-    private lateinit var listener: HomeListener
-
-    interface HomeListener {
-        fun onHomeAdClicked()
-    }
-
-    private val mockAds = listOf(
-        Ad(
-            id = "1",
-            title = "Смартфон Samsung Galaxy S21",
-            description = "Отличное состояние",
-            price = 25000.0,
-            category = "Электроника",
-            location = "Москва",
-            date = "2025-11-10 15:34",
-            sellerId = "user1",
-            sellerName = "Иван Иванов"
-        ),
-        Ad(
-            id = "2",
-            title = "Диван угловой",
-            description = "Новый диван",
-            price = 15000.0,
-            category = "Мебель",
-            location = "Тверь",
-            date = "2025-11-10 15:34",
-            sellerId = "user2",
-            sellerName = "Петр Петров"
-        ),
-        Ad(
-            id = "3",
-            title = "Футболка мужская",
-            description = "Новая с биркой",
-            price = 1500.0,
-            category = "Одежда",
-            location = "Казань",
-            date = "2025-11-10 15:34",
-            sellerId = "user3",
-            sellerName = "Алексей Сидоров"
-        )
-    )
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as HomeListener
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -87,7 +39,7 @@ class HomeFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adsAdapter = AdsAdapter(
                 onAdClick = { ad ->
-                    navigateToAdDetails()
+                    navigateToAdDetails(ad)
                 },
                 onFavoriteClick = { ad ->
                     toggleFavorite(ad)
@@ -111,36 +63,47 @@ class HomeFragment : Fragment() {
 
     private fun setupClickListeners() {
         binding.filterButton.setOnClickListener {
-            showCategoriesFragment()
+            showCategoriesDialog()
         }
     }
 
     private fun loadAds() {
+        val mockAds = listOf(
+            Ad(
+                id = "1",
+                title = "Смартфон Samsung Galaxy S21",
+                description = "Отличное состояние",
+                price = 25000.0,
+                category = "Электроника",
+                location = "Москва",
+                date = "2025-11-10 15:34",
+                sellerId = "user1",
+                sellerName = "Иван Иванов"
+            ),
+            Ad(
+                id = "2",
+                title = "Диван угловой",
+                description = "Новый диван",
+                price = 15000.0,
+                category = "Мебель",
+                location = "Тверь",
+                date = "2025-11-10 15:34",
+                sellerId = "user2",
+                sellerName = "Петр Петров"
+            )
+        )
         adsAdapter.submitList(mockAds)
     }
 
-    private fun showCategoriesFragment() {
-        val categoriesFragment = CategoriesFragment()
-        categoriesFragment.show(parentFragmentManager, "categories_dialog")
-    }
-
     private fun toggleFavorite(ad: Ad) {
-        val newFavoriteState = !ad.isFavorite
 
-        val updatedAds = adsAdapter.currentList.map { currentAd ->
-            if (currentAd.id == ad.id) {
-                currentAd.copy(isFavorite = newFavoriteState)
-            } else {
-                currentAd
-            }
-        }
-        adsAdapter.submitList(updatedAds)
-
-        val message = if (newFavoriteState) "Добавлено в избранное" else "Удалено из избранного"
-        Toast.makeText(requireContext(), message, Toast.LENGTH_SHORT).show()
     }
 
-    private fun navigateToAdDetails() {
-        listener.onHomeAdClicked()
+    private fun navigateToAdDetails(ad: Ad) {
+        findNavController().navigate(R.id.action_nav_home_to_adDetailsFragment)
+    }
+
+    private fun showCategoriesDialog() {
+        findNavController().navigate(R.id.action_nav_home_to_categoriesDialog)
     }
 }

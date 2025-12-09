@@ -3,58 +3,30 @@ package com.example.buyboard_android.ui.auth
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.fragment.NavHostFragment
+import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.ActivityAuthBinding
-import com.example.buyboard_android.ui.auth.login.LoginFragment
-import com.example.buyboard_android.ui.auth.register.RegisterFragment
 import com.example.buyboard_android.ui.main.MainActivity
 
-class AuthActivity : AppCompatActivity(),
-    LoginFragment.LoginListener,
-    RegisterFragment.RegisterListener {
-    private lateinit var activityAuthBinding: ActivityAuthBinding
+class AuthActivity : AppCompatActivity(), AuthNavigationListener  {
+    private lateinit var binding: ActivityAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        activityAuthBinding = ActivityAuthBinding.inflate(layoutInflater)
-        setContentView(activityAuthBinding.root)
-
-        showLoginFragment()
+        binding = ActivityAuthBinding.inflate(layoutInflater)
+        setContentView(binding.root)
     }
 
-    private fun showLoginFragment() {
-        val fragment = LoginFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityAuthBinding.authFragmentContainer.id, fragment)
-            .commit()
+    override fun onSupportNavigateUp(): Boolean {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.auth_nav_host_fragment) as NavHostFragment
+
+        return navHostFragment.navController.navigateUp()
     }
 
-    private fun showRegisterFragment() {
-        val fragment = RegisterFragment()
-        supportFragmentManager.beginTransaction()
-            .replace(activityAuthBinding.authFragmentContainer.id, fragment)
-            .addToBackStack("register")
-            .commit()
-    }
-
-    private fun navigateToMain() {
+    override fun navigateToMain() {
         val intent = Intent(this, MainActivity::class.java)
         startActivity(intent)
         finish()
-    }
-
-    override fun onRegisterClicked() {
-        showRegisterFragment()
-    }
-
-    override fun onLoginClicked() {
-        supportFragmentManager.popBackStack()
-    }
-
-    override fun onRegisterSuccessClicked() {
-        navigateToMain()
-    }
-
-    override fun onLoginSuccessClicked() {
-        navigateToMain()
     }
 }

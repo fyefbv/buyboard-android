@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.FragmentSettingsBinding
 
@@ -22,7 +23,6 @@ class SettingsFragment : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupClickListeners()
     }
 
@@ -33,7 +33,11 @@ class SettingsFragment : DialogFragment() {
 
     private fun setupClickListeners() {
         binding.closeButton.setOnClickListener {
-            dismiss()
+            dismissDialog()
         }
+    }
+
+    private fun dismissDialog() {
+        findNavController().navigateUp()
     }
 }

@@ -2,24 +2,26 @@ package com.example.buyboard_android.ui.profile
 
 import android.content.Context
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.FragmentProfileBinding
+import com.example.buyboard_android.ui.main.MainNavigationListener
 
 class ProfileFragment : Fragment() {
     private lateinit var binding: FragmentProfileBinding
-    private lateinit var listener: ProfileListener
-
-    interface ProfileListener {
-        fun onLogoutClicked()
-        fun onMyAdsClicked()
-    }
+    private lateinit var mainNavigationListener: MainNavigationListener
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        listener = context as ProfileListener
+        if (context is MainNavigationListener) {
+            mainNavigationListener = context
+        } else {
+            throw RuntimeException("$context must implement MainNavigationListener")
+        }
     }
 
     override fun onCreateView(
@@ -33,35 +35,40 @@ class ProfileFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         setupClickListeners()
     }
 
     private fun setupClickListeners() {
         binding.settingsItem.setOnClickListener {
-            showSettingsFragment()
+            showSettingsDialog()
         }
 
         binding.logoutItem.setOnClickListener {
-            listener.onLogoutClicked()
+            navigateToAuth()
         }
 
         binding.myAdsItem.setOnClickListener {
-            listener.onMyAdsClicked()
+            navigateToMyAds()
         }
 
         binding.editProfileButton.setOnClickListener {
-            showEditProfileFragment()
+            showEditProfileDialog()
         }
     }
 
-    private fun showSettingsFragment() {
-        val settingsFragment = SettingsFragment()
-        settingsFragment.show(parentFragmentManager, "settings_dialog")
+    private fun showSettingsDialog() {
+        findNavController().navigate(R.id.action_nav_profile_to_settingsDialog)
     }
 
-    private fun showEditProfileFragment() {
-        val editProfileFragment = EditProfileFragment()
-        editProfileFragment.show(parentFragmentManager, "edit_profile_dialog")
+    private fun showEditProfileDialog() {
+        findNavController().navigate(R.id.action_nav_profile_to_editProfileDialog)
+    }
+
+    private fun navigateToMyAds() {
+        findNavController().navigate(R.id.action_nav_profile_to_myAdsFragment)
+    }
+
+    private fun navigateToAuth() {
+        mainNavigationListener.navigateToAuth()
     }
 }

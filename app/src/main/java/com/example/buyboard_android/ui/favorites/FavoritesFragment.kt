@@ -1,7 +1,5 @@
 package com.example.buyboard_android.ui.favorites
 
-import android.content.Context
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.buyboard_android.R
 import com.example.buyboard_android.data.models.Ad
@@ -18,55 +17,6 @@ import com.example.buyboard_android.ui.home.adapters.AdsAdapter
 class FavoritesFragment : Fragment() {
     private lateinit var binding: FragmentFavoritesBinding
     private lateinit var adsAdapter: AdsAdapter
-    private lateinit var listener: FavoritesListener
-
-    interface FavoritesListener {
-        fun onFavoriteAdClicked()
-    }
-
-    private val mockAds = listOf(
-        Ad(
-            id = "1",
-            title = "Смартфон Samsung Galaxy S21",
-            description = "Отличное состояние",
-            price = 25000.0,
-            category = "Электроника",
-            location = "Москва",
-            isFavorite = true,
-            date = "2025-11-10 15:34",
-            sellerId = "user1",
-            sellerName = "Иван Иванов"
-        ),
-        Ad(
-            id = "2",
-            title = "Диван угловой",
-            description = "Новый диван",
-            price = 15000.0,
-            category = "Мебель",
-            location = "Тверь",
-            isFavorite = true,
-            date = "2025-11-10 15:34",
-            sellerId = "user2",
-            sellerName = "Петр Петров"
-        ),
-        Ad(
-            id = "3",
-            title = "Футболка мужская",
-            description = "Новая с биркой",
-            price = 1500.0,
-            category = "Одежда",
-            location = "Казань",
-            isFavorite = true,
-            date = "2025-11-10 15:34",
-            sellerId = "user3",
-            sellerName = "Алексей Сидоров"
-        )
-    )
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        listener = context as FavoritesListener
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -89,7 +39,7 @@ class FavoritesFragment : Fragment() {
             layoutManager = LinearLayoutManager(requireContext())
             adsAdapter = AdsAdapter(
                 onAdClick = { ad ->
-                    navigateToAdDetails()
+                    navigateToAdDetails(ad.id)
                 },
                 onFavoriteClick = { ad ->
                     toggleFavorite(ad)
@@ -112,25 +62,29 @@ class FavoritesFragment : Fragment() {
     }
 
     private fun loadAds() {
+        val mockAds = listOf(
+            Ad(
+                id = "1",
+                title = "Смартфон Samsung Galaxy S21",
+                description = "Отличное состояние",
+                price = 25000.0,
+                category = "Электроника",
+                location = "Москва",
+                isFavorite = true,
+                date = "2025-11-10 15:34",
+                sellerId = "user1",
+                sellerName = "Иван Иванов"
+            )
+        )
         adsAdapter.submitList(mockAds)
     }
 
     private fun toggleFavorite(ad: Ad) {
-        val updatedAds = adsAdapter.currentList.filter { currentAd ->
-            currentAd.id != ad.id
-        }
-
-        if (updatedAds.isNotEmpty()){
-            adsAdapter.submitList(updatedAds)
-            binding.adsRecyclerView.visibility = View.VISIBLE
-        }
-        else {
-            binding.adsRecyclerView.visibility = View.GONE
-            binding.emptyStateLayout.visibility = View.VISIBLE
-        }
+        Toast.makeText(requireContext(), "Удалено из избранного", Toast.LENGTH_SHORT).show()
+        loadAds()
     }
 
-    private fun navigateToAdDetails() {
-        listener.onFavoriteAdClicked()
+    private fun navigateToAdDetails(adId: String) {
+        findNavController().navigate(R.id.action_nav_favorites_to_adDetailsFragment)
     }
 }

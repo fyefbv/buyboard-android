@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
+import androidx.navigation.fragment.findNavController
 import com.example.buyboard_android.R
 import com.example.buyboard_android.data.models.Category
 import com.example.buyboard_android.databinding.FragmentCategoriesBinding
@@ -68,7 +69,7 @@ class CategoriesFragment : DialogFragment() {
         binding.categoriesRecyclerView.apply {
             this.layoutManager = layoutManager
             categoriesAdapter = CategoriesAdapter(
-                onCategoryClick = {
+                onCategoryClick = { category ->
 
                 }
             )
@@ -78,7 +79,7 @@ class CategoriesFragment : DialogFragment() {
 
     private fun setupClickListeners() {
         binding.closeButton.setOnClickListener {
-            dismiss()
+            dismissDialog()
         }
 
         binding.clearButton.setOnClickListener {
@@ -86,11 +87,15 @@ class CategoriesFragment : DialogFragment() {
         }
 
         binding.applyButton.setOnClickListener {
-            dismiss()
+            dismissDialog()
         }
     }
 
     private fun loadCategories() {
         categoriesAdapter.submitList(mockCategories.toMutableList())
+    }
+
+    private fun dismissDialog() {
+        findNavController().navigateUp()
     }
 }
