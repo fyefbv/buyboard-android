@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.findNavController
 import com.example.buyboard_android.R
-import com.example.buyboard_android.data.models.Category
+import com.example.buyboard_android.data.models.domain.Category
 import com.example.buyboard_android.databinding.FragmentCategoriesBinding
 import com.example.buyboard_android.ui.home.adapters.CategoriesAdapter
 import com.google.android.flexbox.FlexDirection

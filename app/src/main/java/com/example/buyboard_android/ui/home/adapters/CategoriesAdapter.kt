@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.example.buyboard_android.data.models.Category
+import com.example.buyboard_android.data.models.domain.Category
 import com.example.buyboard_android.databinding.ItemCategoryBinding
 
 class CategoriesAdapter(

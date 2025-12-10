@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
+    id("kotlin-kapt")
+    kotlin("plugin.serialization")
 }
 
 android {
@@ -41,6 +43,16 @@ android {
 }
 
 dependencies {
+    implementation(libs.ktor.client.core)
+    implementation(libs.ktor.client.okhttp)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation(libs.ktor.serialization.kotlinx.json)
+    implementation(libs.kotlinx.serialization.json)
+    implementation(libs.glide)
+    kapt(libs.glide.compiler)
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
+    implementation(libs.androidx.lifecycle.livedata.ktx)
+    implementation(libs.kotlinx.coroutines.android)
     implementation(libs.flexbox)
     implementation(libs.androidx.swiperefreshlayout)
     implementation(libs.androidx.core.ktx)

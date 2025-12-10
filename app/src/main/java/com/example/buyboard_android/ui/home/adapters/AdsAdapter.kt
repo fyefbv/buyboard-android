@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.buyboard_android.R
-import com.example.buyboard_android.data.models.Ad
+import com.example.buyboard_android.data.models.domain.Ad
 import com.example.buyboard_android.databinding.ItemAdBinding
 
 class AdsAdapter(
@@ -21,9 +21,9 @@ class AdsAdapter(
         fun bind(ad: Ad) {
             binding.adTitle.text = ad.title
             binding.adPrice.text = "${ad.price.toInt()} ₽"
-            binding.adLocation.text = ad.location
-            binding.adDate.text = ad.date
-            binding.adCategory.text = ad.category
+            binding.adLocation.text = ad.location.name
+            binding.adDate.text = ad.createdAt
+            binding.adCategory.text = ad.category.name
             binding.adImage.setImageResource(R.drawable.ic_launcher_background)
 
             updateFavoriteButtonAppearance(ad.isFavorite)
