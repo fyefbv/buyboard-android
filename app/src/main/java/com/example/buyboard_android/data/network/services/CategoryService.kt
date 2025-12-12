@@ -1,23 +1,26 @@
 package com.example.buyboard_android.data.network.services
 
-import android.content.Context
-import com.example.buyboard_android.BuyBoardApp
 import com.example.buyboard_android.data.models.domain.Category
 import com.example.buyboard_android.data.models.extensions.toDomain
+import com.example.buyboard_android.data.network.ApiClient
+import com.example.buyboard_android.data.network.ApiException
 
-class CategoryService(private val context: Context) {
-    private val apiClient get() = (context.applicationContext as BuyBoardApp).apiClient
-
+class CategoryService(private val apiClient: ApiClient) {
     private var cachedCategories: List<Category>? = null
 
     suspend fun getCategories(forceRefresh: Boolean = false): List<Category> {
-        return if (!forceRefresh && cachedCategories != null) {
-            cachedCategories!!
-        } else {
+        if (!forceRefresh && cachedCategories != null) {
+            return cachedCategories!!
+        }
+
+        try {
             val response = apiClient.getCategories()
             val categories = response.toDomain()
             cachedCategories = categories
-            categories
+            return categories
+        } catch (e: ApiException) {
+            cachedCategories = null
+            return emptyList()
         }
     }
 

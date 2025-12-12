@@ -19,10 +19,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.HttpTimeout
+import io.ktor.client.plugins.auth.Auth
+import io.ktor.client.plugins.auth.providers.BearerTokens
+import io.ktor.client.plugins.auth.providers.bearer
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.defaultRequest
 import io.ktor.client.request.accept
-import io.ktor.client.request.bearerAuth
 import io.ktor.client.request.delete
 import io.ktor.client.request.get
 import io.ktor.client.request.header
@@ -38,11 +40,15 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import java.util.concurrent.TimeUnit
 
-class ApiClient(context: Context) {
+class ApiClient(context: Context, private val tokenManager: TokenManager) {
 
-    private val baseUrl = "http://10.0.2.2:8000/api"
+    private val baseUrl = "http://10.0.2.2:8000"
 
-    private val tokenManager = TokenManager(context)
+    private var currentLanguage = "en"
+
+    fun setLanguage(language: String) {
+        currentLanguage = language
+    }
 
     private val client = HttpClient(OkHttp) {
         engine {
@@ -51,12 +57,52 @@ class ApiClient(context: Context) {
                 readTimeout(30, TimeUnit.SECONDS)
                 writeTimeout(30, TimeUnit.SECONDS)
             }
+            addInterceptor(NetworkInterceptor(context))
         }
 
         install(HttpTimeout) {
             requestTimeoutMillis = 30000
             connectTimeoutMillis = 30000
             socketTimeoutMillis = 30000
+        }
+
+        install(Auth) {
+            bearer {
+                loadTokens {
+                    val accessToken = tokenManager.getAccessToken()
+                    val refreshToken = tokenManager.getRefreshToken()
+
+                    if (accessToken != null && refreshToken != null) {
+                        BearerTokens(accessToken, refreshToken)
+                    } else {
+                        null
+                    }
+                }
+
+                refreshTokens {
+                    try {
+                        val refreshToken = tokenManager.getRefreshToken()
+                        if (refreshToken != null) {
+                            val tempClient = createUnauthenticatedClient()
+                            val response: TokenResponse = tempClient.post("$baseUrl/api/auth/refresh") {
+                                contentType(ContentType.Application.Json)
+                                setBody(RefreshTokenRequest(refreshToken))
+                            }.body()
+
+                            tokenManager.saveTokens(response.accessToken, response.refreshToken)
+                            BearerTokens(response.accessToken, response.refreshToken)
+                        } else {
+                            null
+                        }
+                    } catch (e: Exception) {
+                        null
+                    }
+                }
+
+                sendWithoutRequest { request ->
+                    !request.url.pathSegments.contains("auth")
+                }
+            }
         }
 
         install(ContentNegotiation) {
@@ -67,27 +113,28 @@ class ApiClient(context: Context) {
         }
 
         defaultRequest {
-            url("$baseUrl/")
+            url(baseUrl)
             accept(ContentType.Application.Json)
         }
     }
 
-    private fun getAuthHeader(): String? {
-        return tokenManager.getAccessToken()?.let { "Bearer $it" }
-    }
-
-    suspend fun register(request: RegisterRequest): TokenResponse {
-        return handleResponse {
-            client.post("/auth/register") {
-                contentType(ContentType.Application.Json)
-                setBody(request)
+    private fun createUnauthenticatedClient(): HttpClient {
+        return HttpClient(OkHttp) {
+            install(ContentNegotiation) {
+                json(Json {
+                    ignoreUnknownKeys = true
+                    isLenient = true
+                })
+            }
+            install(HttpTimeout) {
+                requestTimeoutMillis = 30000
             }
         }
     }
 
-    suspend fun login(request: LoginRequest): TokenResponse {
+    suspend fun register(request: RegisterRequest): TokenResponse {
         val response: TokenResponse = handleResponse {
-            client.post("/auth/login") {
+            client.post("/api/auth/register") {
                 contentType(ContentType.Application.Json)
                 setBody(request)
             }
@@ -98,39 +145,47 @@ class ApiClient(context: Context) {
         return response
     }
 
-    suspend fun refreshToken(refreshToken: String): TokenResponse {
-        val request = RefreshTokenRequest(refreshToken)
-        return handleResponse {
-            client.post("/auth/refresh") {
+    suspend fun login(request: LoginRequest): TokenResponse {
+        val response: TokenResponse = handleResponse {
+            client.post("/api/auth/login") {
                 contentType(ContentType.Application.Json)
                 setBody(request)
+            }
+        }
+
+        saveTokens(response.accessToken, response.refreshToken)
+
+        return response
+    }
+
+    suspend fun getUser(userId: String): UserResponse {
+        return handleResponse {
+            client.get("/api/users/$userId") {
+                contentType(ContentType.Application.Json)
             }
         }
     }
 
     suspend fun getCurrentUser(): UserResponse {
         return handleResponse {
-            client.get("/users/me") {
+            client.get("/api/users/me") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
             }
         }
     }
 
     suspend fun getUserStats(): UserStatsResponse {
         return handleResponse {
-            client.get("/users/me/stats") {
+            client.get("/api/users/me/stats") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
             }
         }
     }
 
     suspend fun updateUser(request: UserUpdateRequest): UserResponse {
         return handleResponse {
-            client.patch("/users/me") {
+            client.patch("/api/users/me") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
                 setBody(request)
             }
         }
@@ -138,9 +193,9 @@ class ApiClient(context: Context) {
 
     suspend fun getAds(params: Map<String, Any?> = emptyMap()): List<AdResponse> {
         return handleResponse {
-            client.get("/ads/") {
+            client.get("/api/ads/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
 
                 params.forEach { (key, value) ->
                     value?.let { parameter(key, it) }
@@ -151,27 +206,27 @@ class ApiClient(context: Context) {
 
     suspend fun getAd(adId: String): AdResponse {
         return handleResponse {
-            client.get("/ads/$adId") {
+            client.get("/api/ads/$adId") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
             }
         }
     }
 
     suspend fun getMyAds(): List<AdResponse> {
         return handleResponse {
-            client.get("/ads/me/") {
+            client.get("/api/ads/me/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
             }
         }
     }
 
     suspend fun createAd(request: AdCreateRequest): AdResponse {
         return handleResponse {
-            client.post("/ads/") {
+            client.post("/api/ads/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
                 setBody(request)
             }
         }
@@ -179,10 +234,9 @@ class ApiClient(context: Context) {
 
     suspend fun updateAd(adId: String, request: AdUpdateRequest): AdResponse {
         return handleResponse {
-            client.post("/ads/$adId") {
+            client.patch("/api/ads/$adId") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
-                header("X-HTTP-Method-Override", "PATCH")
+                header("Accept-Language", currentLanguage)
                 setBody(request)
             }
         }
@@ -190,9 +244,8 @@ class ApiClient(context: Context) {
 
     suspend fun deleteAd(adId: String): Boolean {
         handleResponse<Unit> {
-            client.delete("/ads/$adId") {
+            client.delete("/api/ads/$adId") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
             }
         }
         return true
@@ -200,18 +253,17 @@ class ApiClient(context: Context) {
 
     suspend fun getFavorites(): List<AdResponse> {
         return handleResponse {
-            client.get("/favorites/") {
+            client.get("/api/favorites/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
             }
         }
     }
 
     suspend fun addFavorite(adId: String): FavoriteResponse {
         return handleResponse {
-            client.post("/favorites/$adId") {
+            client.post("/api/favorites/$adId") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
                 setBody("{}")
             }
         }
@@ -219,9 +271,8 @@ class ApiClient(context: Context) {
 
     suspend fun removeFavorite(adId: String): Boolean {
         handleResponse<Unit> {
-            client.delete("/favorites/$adId") {
+            client.delete("/api/favorites/$adId") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
             }
         }
         return true
@@ -229,18 +280,18 @@ class ApiClient(context: Context) {
 
     suspend fun getCategories(): List<CategoryResponse> {
         return handleResponse {
-            client.get("/categories/") {
+            client.get("/api/categories/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
             }
         }
     }
 
     suspend fun getLocations(): List<LocationResponse> {
         return handleResponse {
-            client.get("/locations/") {
+            client.get("/api/locations/") {
                 contentType(ContentType.Application.Json)
-                getAuthHeader()?.let { bearerAuth(it) }
+                header("Accept-Language", currentLanguage)
             }
         }
     }
@@ -251,12 +302,8 @@ class ApiClient(context: Context) {
         val response = request()
         val statusCode = response.status.value
 
-        return if (statusCode in 200..299) {
-            try {
-                response.body<T>()
-            } catch (e: Exception) {
-                throw ApiException("Failed to parse response: ${e.message}", statusCode)
-            }
+        if (statusCode in 200..299) {
+            return response.body<T>()
         } else {
             val errorBody = try {
                 response.bodyAsText()
@@ -267,12 +314,15 @@ class ApiClient(context: Context) {
             throw try {
                 val errorResponse = Json.decodeFromString<ApiErrorResponse>(errorBody)
                 ApiException(
-                    errorResponse.error.message,
-                    statusCode,
-                    errorResponse.error.code
+                    message = errorResponse.error.message,
+                    statusCode = statusCode,
+                    errorCode = errorResponse.error.code
                 )
             } catch (e: Exception) {
-                ApiException("HTTP $statusCode: ${response.status.description}", statusCode)
+                ApiException(
+                    message = "HTTP $statusCode: ${response.status.description}",
+                    statusCode = statusCode
+                )
             }
         }
     }
@@ -286,6 +336,4 @@ class ApiClient(context: Context) {
     }
 
     fun isLoggedIn(): Boolean = tokenManager.isLoggedIn()
-
-    fun getAccessToken(): String? = tokenManager.getAccessToken()
 }

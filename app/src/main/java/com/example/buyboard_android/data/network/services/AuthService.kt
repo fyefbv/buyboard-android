@@ -1,16 +1,14 @@
 package com.example.buyboard_android.data.network.services
 
-import android.content.Context
-import com.example.buyboard_android.BuyBoardApp
 import com.example.buyboard_android.data.models.dto.requests.LoginRequest
-import com.example.buyboard_android.data.models.dto.requests.RefreshTokenRequest
 import com.example.buyboard_android.data.models.dto.requests.RegisterRequest
 import com.example.buyboard_android.data.models.dto.responses.TokenResponse
+import com.example.buyboard_android.data.network.ApiClient
 import com.example.buyboard_android.data.network.ApiException
+import kotlinx.coroutines.sync.Mutex
+import kotlinx.coroutines.sync.withLock
 
-class AuthService(private val context: Context) {
-    private val apiClient get() = (context.applicationContext as BuyBoardApp).apiClient
-
+class AuthService(private val apiClient: ApiClient) {
     suspend fun register(login: String, email: String, password: String): TokenResponse {
         return try {
             val request = RegisterRequest(login, email, password)
@@ -35,27 +33,9 @@ class AuthService(private val context: Context) {
         }
     }
 
-    suspend fun refreshToken(): TokenResponse {
-        val refreshToken = apiClient.getAccessToken() ?: throw Exception("Нет токена")
-        return try {
-            val request = RefreshTokenRequest(refreshToken)
-            apiClient.refreshToken(refreshToken)
-        } catch (e: ApiException) {
-            when (e.errorCode) {
-                "invalid_token", "expired_token" -> {
-                    logout()
-                    throw Exception("Сессия истекла. Войдите снова")
-                }
-                else -> throw Exception("Ошибка обновления токена")
-            }
-        }
-    }
-
     fun logout() {
         apiClient.clearTokens()
     }
 
     fun isLoggedIn(): Boolean = apiClient.isLoggedIn()
-
-    fun getAccessToken(): String? = apiClient.getAccessToken()
 }

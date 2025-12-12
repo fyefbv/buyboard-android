@@ -3,6 +3,7 @@ package com.example.buyboard_android.ui.my_ads
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.buyboard_android.data.models.domain.Ad
+import com.example.buyboard_android.data.network.ApiException
 import com.example.buyboard_android.data.network.services.AdService
 import com.example.buyboard_android.ui.common.ViewState
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,12 +24,8 @@ class MyAdsViewModel(
 
             try {
                 val ads = adService.getMyAds()
-                _myAdsState.value = if (ads.isEmpty()) {
-                    ViewState.Empty
-                } else {
-                    ViewState.Success(ads)
-                }
-            } catch (e: Exception) {
+                _myAdsState.value = if (ads.isEmpty()) ViewState.Empty else ViewState.Success(ads)
+            } catch (e: ApiException) {
                 _myAdsState.value = ViewState.Error("Ошибка загрузки ваших объявлений")
             }
         }
@@ -37,11 +34,9 @@ class MyAdsViewModel(
     suspend fun deleteAd(adId: String): Boolean {
         return try {
             val success = adService.deleteAd(adId)
-            if (success) {
-                loadMyAds()
-            }
+            if (success) loadMyAds()
             success
-        } catch (e: Exception) {
+        } catch (e: ApiException) {
             false
         }
     }

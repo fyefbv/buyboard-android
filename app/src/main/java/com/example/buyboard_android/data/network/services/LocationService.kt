@@ -1,23 +1,26 @@
 package com.example.buyboard_android.data.network.services
 
-import android.content.Context
-import com.example.buyboard_android.BuyBoardApp
 import com.example.buyboard_android.data.models.domain.Location
 import com.example.buyboard_android.data.models.extensions.toDomain
+import com.example.buyboard_android.data.network.ApiClient
+import com.example.buyboard_android.data.network.ApiException
 
-class LocationService(private val context: Context) {
-    private val apiClient get() = (context.applicationContext as BuyBoardApp).apiClient
-
+class LocationService(private val apiClient: ApiClient) {
     private var cachedLocations: List<Location>? = null
 
     suspend fun getLocations(forceRefresh: Boolean = false): List<Location> {
-        return if (!forceRefresh && cachedLocations != null) {
-            cachedLocations!!
-        } else {
+        if (!forceRefresh && cachedLocations != null) {
+            return cachedLocations!!
+        }
+
+        try {
             val response = apiClient.getLocations()
             val locations = response.toDomain()
             cachedLocations = locations
-            locations
+            return locations
+        } catch (e: ApiException) {
+            cachedLocations = null
+            return emptyList()
         }
     }
 

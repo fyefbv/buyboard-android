@@ -1,37 +1,57 @@
 package com.example.buyboard_android.data.network.services
 
-import android.content.Context
-import com.example.buyboard_android.BuyBoardApp
 import com.example.buyboard_android.data.models.domain.User
 import com.example.buyboard_android.data.models.dto.requests.UserUpdateRequest
 import com.example.buyboard_android.data.models.extensions.toDomain
+import com.example.buyboard_android.data.network.ApiClient
+import com.example.buyboard_android.data.network.ApiException
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
-class UserService(private val context: Context) {
-    private val apiClient get() = (context.applicationContext as BuyBoardApp).apiClient
-
+class UserService(private val apiClient: ApiClient) {
     suspend fun getCurrentUser(): User {
-        val response = apiClient.getCurrentUser()
-        return response.toDomain()
-    }
-
-    suspend fun getUserStats(): Int {
-        val response = apiClient.getUserStats()
-        return response.activeAdsCount
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiClient.getCurrentUser()
+                response.toDomain()
+            } catch (e: ApiException) {
+                throw Exception("Ошибка загрузки профиля")
+            }
+        }
     }
 
     suspend fun getUserById(userId: String): User {
-        // TODO: Реализовать, когда появится соответствующий endpoint
-        throw NotImplementedError("getUserById not implemented yet")
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiClient.getUser(userId)
+                response.toDomain()
+            } catch (e: ApiException) {
+                throw Exception("Ошибка загрузки профиля")
+            }
+        }
     }
 
-    suspend fun updateUser(
-        login: String? = null,
-        email: String? = null,
-        password: String? = null
-    ): User {
-        val request = UserUpdateRequest(login, email, password)
-        val response = apiClient.updateUser(request)
-        return response.toDomain()
+    suspend fun getUserStats(): Int {
+        return withContext(Dispatchers.IO) {
+            try {
+                val response = apiClient.getUserStats()
+                response.activeAdsCount
+            } catch (e: ApiException) {
+                0
+            }
+        }
+    }
+
+    suspend fun updateUser(login: String? = null, email: String? = null, password: String? = null): User {
+        return withContext(Dispatchers.IO) {
+            try {
+                val request = UserUpdateRequest(login, email, password)
+                val response = apiClient.updateUser(request)
+                response.toDomain()
+            } catch (e: ApiException) {
+                throw Exception("Ошибка обновления профиля")
+            }
+        }
     }
 
     suspend fun updateAvatar(imageBytes: ByteArray): String {

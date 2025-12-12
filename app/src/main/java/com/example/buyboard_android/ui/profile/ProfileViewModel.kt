@@ -3,6 +3,7 @@ package com.example.buyboard_android.ui.profile
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.buyboard_android.data.models.domain.User
+import com.example.buyboard_android.data.network.ApiException
 import com.example.buyboard_android.data.network.services.AdService
 import com.example.buyboard_android.data.network.services.UserService
 import com.example.buyboard_android.ui.common.ViewState
@@ -32,7 +33,7 @@ class ProfileViewModel(
 
                 val stats = userService.getUserStats()
                 _statsState.value = stats
-            } catch (e: Exception) {
+            } catch (e: ApiException) {
                 _profileState.value = ViewState.Error("Ошибка загрузки профиля")
             }
         }
@@ -43,7 +44,7 @@ class ProfileViewModel(
             val updatedUser = userService.updateUser(login, email)
             _profileState.value = ViewState.Success(updatedUser)
             true
-        } catch (e: Exception) {
+        } catch (e: ApiException) {
             false
         }
     }

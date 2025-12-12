@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.buyboard_android.data.models.domain.Ad
 import com.example.buyboard_android.data.models.domain.Category
 import com.example.buyboard_android.data.models.domain.Location
+import com.example.buyboard_android.data.network.ApiException
 import com.example.buyboard_android.data.network.services.AdService
 import com.example.buyboard_android.data.network.services.CategoryService
 import com.example.buyboard_android.data.network.services.LocationService
@@ -38,13 +39,9 @@ class HomeViewModel(
 
             try {
                 val ads = adService.getAds(params)
-                _adsState.value = if (ads.isEmpty()) {
-                    ViewState.Empty
-                } else {
-                    ViewState.Success(ads)
-                }
-            } catch (e: Exception) {
-                _adsState.value = ViewState.Error("Ошибка загрузки: ${e.message ?: "Неизвестная ошибка"}")
+                _adsState.value = if (ads.isEmpty()) ViewState.Empty else ViewState.Success(ads)
+            } catch (e: ApiException) {
+                _adsState.value = ViewState.Error("Ошибка загрузки: ${e.message}")
             }
         }
     }
@@ -54,9 +51,7 @@ class HomeViewModel(
             try {
                 val categories = categoryService.getCategories()
                 _categoriesState.value = categories
-            } catch (e: Exception) {
-
-            }
+            } catch (e: ApiException) { }
         }
     }
 
@@ -65,25 +60,16 @@ class HomeViewModel(
             try {
                 val locations = locationService.getLocations()
                 _locationsState.value = locations
-            } catch (e: Exception) {
-
-            }
+            } catch (e: ApiException) { }
         }
     }
 
-    fun applyFilters(
-        categoryId: String? = null,
-        locationId: String? = null,
-        minPrice: Int? = null,
-        maxPrice: Int? = null
-    ) {
+    fun applyFilters(categoryId: String? = null, locationId: String? = null, minPrice: Int? = null, maxPrice: Int? = null) {
         val params = mutableMapOf<String, Any?>()
-
         categoryId?.let { params["category_id"] = it }
         locationId?.let { params["location_id"] = it }
         minPrice?.let { params["min_price"] = it }
         maxPrice?.let { params["max_price"] = it }
-
         loadAds(params)
     }
 

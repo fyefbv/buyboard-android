@@ -7,6 +7,11 @@ import androidx.core.content.edit
 class TokenManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences("buyboard_tokens", Context.MODE_PRIVATE)
 
+    companion object {
+        private const val KEY_ACCESS_TOKEN = "access_token"
+        private const val KEY_REFRESH_TOKEN = "refresh_token"
+    }
+
     fun saveTokens(accessToken: String, refreshToken: String) {
         prefs.edit {
             putString(KEY_ACCESS_TOKEN, accessToken)
@@ -24,10 +29,5 @@ class TokenManager(context: Context) {
         }
     }
 
-    fun isLoggedIn(): Boolean = getAccessToken() != null
-
-    companion object {
-        private const val KEY_ACCESS_TOKEN = "access_token"
-        private const val KEY_REFRESH_TOKEN = "refresh_token"
-    }
+    fun isLoggedIn(): Boolean = getAccessToken() != null && getRefreshToken() != null
 }

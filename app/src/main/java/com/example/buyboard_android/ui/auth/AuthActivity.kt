@@ -4,17 +4,24 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.fragment.NavHostFragment
+import com.example.buyboard_android.BuyBoardApp
 import com.example.buyboard_android.R
 import com.example.buyboard_android.databinding.ActivityAuthBinding
 import com.example.buyboard_android.ui.main.MainActivity
 
-class AuthActivity : AppCompatActivity(), AuthNavigationListener  {
+class AuthActivity : AppCompatActivity(), AuthNavigationListener {
     private lateinit var binding: ActivityAuthBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAuthBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        val app = application as BuyBoardApp
+
+        if (app.authService.isLoggedIn()) {
+            navigateToMain()
+        }
     }
 
     override fun onSupportNavigateUp(): Boolean {
